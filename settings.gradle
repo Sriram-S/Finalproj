@@ -1,0 +1,1 @@
+include ':app', ':javaJokes', ':jokes', ':mylibrary', ':backend'
