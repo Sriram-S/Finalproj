@@ -9,12 +9,11 @@ package com.example.HP.myapplication.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
-
+import com.udacity.gradle.jokes.Joker;
 import javax.inject.Named;
 
-/**
- * An endpoint class we are exposing
- */
+import sun.rmi.runtime.Log;
+
 @Api(
         name = "myApi",
         version = "v1",
@@ -25,16 +24,25 @@ import javax.inject.Named;
         )
 )
 public class MyEndpoint {
-
-    /**
-     * A simple endpoint method that takes a name and says Hi back
-     */
-    @ApiMethod(name = "sayHi")
-    public MyBean sayHi(@Named("name") String name) {
+    @ApiMethod(name = "getJoke")
+    public MyBean getJoke(){
+        Joker joker=new Joker();
+        String s=joker.getJokes();
         MyBean response = new MyBean();
-        response.setData("Hi, " + name);
-
+        response.setData(s);
         return response;
     }
+ /*   @ApiMethod(name = "sayHi")
+    public MyBean sayHi(@Named("name") String name) {
+
+
+        Joker joker=new Joker();
+        String s=joker.getJokes();
+
+        MyBean response = new MyBean();
+        response.setData(s);
+
+        return response;
+    }*/
 
 }

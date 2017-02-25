@@ -3,6 +3,7 @@ package com.example.mylibrary;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class jokesactivity extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class jokesactivity extends AppCompatActivity {
         textView=(TextView)findViewById(R.id.getjoke);
         Intent intent=getIntent();
         String val=intent.getStringExtra("JOKE");
+        Log.v("sdff",val);
         if(val!=null){
             textView.setText(val);
         }

@@ -38,10 +38,10 @@ public class Joker {
                 "\"All of me.\"");
     }
 
-    public String getJoke() {
+
+    public String getJokes() {
         Random ran = new Random();
         int x = ran.nextInt(jokes.size());
         return jokes.get(x).toString();
-
     }
 }
