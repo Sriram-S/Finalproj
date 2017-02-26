@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+
 import com.example.hp.myapplication.backend.myApi.MyApi;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -18,7 +20,6 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.udacity.gradle.jokes.Joker;
 import com.example.mylibrary.*;
 import java.io.IOException;
 
@@ -26,13 +27,14 @@ import java.io.IOException;
 public class MainActivityFragment extends Fragment {
 
     Button b;
+    static ProgressBar progressBar;
+
     public MainActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       // getActivity().setContentView(R.layout.fragment_main);
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
@@ -46,19 +48,22 @@ public class MainActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         b = (Button) getActivity().findViewById(R.id.tell);
+        progressBar=(ProgressBar)getActivity().findViewById(R.id.progress);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("called", "adfsdf");
-                new EndpointsAsyncTask().execute();
+                new EndpointsAsyncTask(getActivity()).execute();
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
     }
 
-    public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+    public static class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
         private MyApi myApiService = null;
+        Context context;
 
-        EndpointsAsyncTask(){
+        public EndpointsAsyncTask(Context context){
+            this.context=context;
         }
 
         @Override
@@ -77,7 +82,6 @@ public class MainActivityFragment extends Fragment {
                 myApiService = builder.build();
             }
             try {
-                Log.v("called2","adfsdf");
                 return myApiService.getJoke().execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
@@ -86,10 +90,11 @@ public class MainActivityFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.v("called3","adfsdf");
-            Intent intent = new Intent(getActivity(), jokesactivity.class);
+            progressBar.setVisibility(View.GONE);
+            Intent intent = new Intent(context, jokesactivity.class);
             intent.putExtra("JOKE", result);
-            getActivity().startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
 }

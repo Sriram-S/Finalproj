@@ -9,6 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivityFragment">
 
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
+
     <TextView
         android:id="@+id/instructions_text_view"
         android:layout_width="wrap_content"

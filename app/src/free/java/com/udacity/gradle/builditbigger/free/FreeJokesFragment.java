@@ -23,6 +23,8 @@ import com.udacity.gradle.jokes.Joker;
 import com.example.mylibrary.*;
 import java.io.IOException;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 
 public class FreeJokesFragment extends Fragment {
 
@@ -44,9 +46,6 @@ public class FreeJokesFragment extends Fragment {
     }
 
 
-
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -54,7 +53,6 @@ public class FreeJokesFragment extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("called", "adfsdf");
                 new EndpointsAsyncTask(getActivity()).execute();
             }
         });
@@ -71,7 +69,6 @@ public class FreeJokesFragment extends Fragment {
         protected String doInBackground(Void... params) {
             MyApi myApiService = null;
             if(myApiService == null) {
-                Log.v("called1","adfsdf");
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         .setRootUrl("http://10.0.2.2:8080/_ah/api/")
@@ -84,7 +81,6 @@ public class FreeJokesFragment extends Fragment {
                 myApiService = builder.build();
             }
             try {
-                Log.v("called2","adfsdf");
                 return myApiService.getJoke().execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
@@ -93,9 +89,9 @@ public class FreeJokesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.v("called3","adfsdf");
             Intent intent = new Intent(context, jokesactivity.class);
             intent.putExtra("JOKE", result);
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
     }
