@@ -8,26 +8,27 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 
-import com.udacity.gradle.builditbigger.MainActivityFragment;
+import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import static junit.framework.Assert.assertNotNull;
 
 /**
  * Created by HP on 26-02-2017.
  */
 
 @RunWith(AndroidJUnit4.class)
-public class AsyncTaskTest extends AndroidTestCase {
+public class AsyncTaskTest {
     String res=null;
 
     @Test
     public void checkasync() throws InterruptedException, ExecutionException, TimeoutException {
-        MainActivityFragment.EndpointsAsyncTask endpointsAsyncTask= new MainActivityFragment.EndpointsAsyncTask(InstrumentationRegistry.getTargetContext());
+        EndpointsAsyncTask endpointsAsyncTask= new EndpointsAsyncTask(InstrumentationRegistry.getTargetContext());
         endpointsAsyncTask.execute();
         res=endpointsAsyncTask.get(20, TimeUnit.SECONDS);
         assertNotNull(res);

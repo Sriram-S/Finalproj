@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.example.hp.myapplication.backend.myApi.MyApi;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -33,7 +31,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        Log.v("No Ads","Enjoyyyy!!!");
         return root;
     }
 
@@ -44,7 +41,6 @@ public class MainFragment extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("calledinpaid", "adfsdf");
                 new EndpointsAsyncTask().execute();
             }
         });
@@ -59,7 +55,6 @@ public class MainFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             if(myApiService == null) {
-                Log.v("called1","adfsdf");
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
                         .setRootUrl("http://10.0.2.2:8080/_ah/api/")
@@ -72,7 +67,6 @@ public class MainFragment extends Fragment {
                 myApiService = builder.build();
             }
             try {
-                Log.v("called2","adfsdf");
                 return myApiService.getJoke().execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
@@ -81,7 +75,6 @@ public class MainFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.v("called3","adfsdf");
             Intent intent = new Intent(getActivity(), jokesactivity.class);
             intent.putExtra("JOKE", result);
             getActivity().startActivity(intent);
