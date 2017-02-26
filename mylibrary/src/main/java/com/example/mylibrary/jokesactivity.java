@@ -16,7 +16,6 @@ public class jokesactivity extends AppCompatActivity {
         textView=(TextView)findViewById(R.id.getjoke);
         Intent intent=getIntent();
         String val=intent.getStringExtra("JOKE");
-        Log.v("sdff",val);
         if(val!=null){
             textView.setText(val);
         }

@@ -8,6 +8,6 @@ public class JokerTest {
     @Test
     public void test() {
         Joker joker = new Joker();
-        assert joker.getJoke().length() != 0;
+        assert joker.getJokes().length() != 0;
     }
 }
