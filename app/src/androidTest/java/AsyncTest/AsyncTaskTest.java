@@ -23,36 +23,25 @@ import java.util.concurrent.TimeoutException;
  * Created by HP on 26-02-2017.
  */
 
-@RunWith(value = AndroidJUnit4.class)
-
+@RunWith(AndroidJUnit4.class)
 public class AsyncTaskTest extends AndroidTestCase {
 
-    @Mock
-    Context context;
-    EndpointsAsyncTask endpointsAsyncTask= new EndpointsAsyncTask(context);
+    @Mock Context context;
+    MainActivity activity=new MainActivity();
     String res=null;
-
-
-    public AsyncTaskTest() {
-        super();
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-    }
 
     @Test
     public void checkasync() throws InterruptedException, ExecutionException, TimeoutException {
-        endpointsAsyncTask.execute();
+        final EndpointsAsyncTask endpointsAsyncTask= new EndpointsAsyncTask(activity);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                        endpointsAsyncTask.execute();
+                    }
+        });
         res=endpointsAsyncTask.get(20, TimeUnit.SECONDS);
         Log.v("sdf",res);
         assertNotNull(res);
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
 }

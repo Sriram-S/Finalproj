@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -41,6 +42,10 @@ public class FreeJokesFragment extends Fragment {
         mAdView.loadAd(adRequest);
         return root;
     }
+
+
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
