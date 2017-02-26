@@ -6,7 +6,8 @@ import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 
-import com.udacity.gradle.builditbigger.*;
+import com.udacity.gradle.builditbigger.FreeJokesFragment;
+import com.udacity.gradle.builditbigger.free.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeoutException;
 
 public class AsyncTaskTest extends AndroidTestCase {
 
-    MainActivityFragment.EndpointsAsyncTask endpointsAsyncTask;
+    FreeJokesFragment.EndpointsAsyncTask endpointsAsyncTask;
     String res=null;
 
 
