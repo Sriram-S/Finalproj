@@ -1,5 +1,6 @@
 package AsyncTest;
 
+import android.content.Context;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.AndroidTestCase;
@@ -7,10 +8,12 @@ import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 
 import com.udacity.gradle.builditbigger.FreeJokesFragment;
+import com.udacity.gradle.builditbigger.FreeJokesFragment.EndpointsAsyncTask;
 import com.udacity.gradle.builditbigger.free.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +27,9 @@ import java.util.concurrent.TimeoutException;
 
 public class AsyncTaskTest extends AndroidTestCase {
 
-    FreeJokesFragment.EndpointsAsyncTask endpointsAsyncTask;
+    @Mock
+    Context context;
+    EndpointsAsyncTask endpointsAsyncTask= new EndpointsAsyncTask(context);
     String res=null;
 
 

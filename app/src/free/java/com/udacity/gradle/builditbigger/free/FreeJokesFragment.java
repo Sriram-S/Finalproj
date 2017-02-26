@@ -50,19 +50,21 @@ public class FreeJokesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.v("called", "adfsdf");
-                new EndpointsAsyncTask().execute();
+                new EndpointsAsyncTask(getActivity()).execute();
             }
         });
     }
 
-    public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
-        private MyApi myApiService = null;
+    public static class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+           Context context;
 
-        EndpointsAsyncTask(){
+        public EndpointsAsyncTask(Context context){
+            this.context=context;
         }
 
         @Override
         protected String doInBackground(Void... params) {
+            MyApi myApiService = null;
             if(myApiService == null) {
                 Log.v("called1","adfsdf");
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
@@ -87,9 +89,9 @@ public class FreeJokesFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             Log.v("called3","adfsdf");
-            Intent intent = new Intent(getActivity(), jokesactivity.class);
+            Intent intent = new Intent(context, jokesactivity.class);
             intent.putExtra("JOKE", result);
-            getActivity().startActivity(intent);
+            context.startActivity(intent);
         }
     }
 }
